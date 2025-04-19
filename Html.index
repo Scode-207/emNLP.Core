@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>emNLP-Core | Emotional Intelligence Platform</title>
+    <style>
+        :root {
+            --primary: #2d3142;
+            --secondary: #4f5d75;
+            --accent: #5c80bc;
+            --light: #f0f2f5;
+            --calm: #5dadec;
+            --passion: #ff6b6b;
+            --joy: #ffcc5c;
+            --neutral: #e6e6e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .cta-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #4a6da7;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5rem 5%;
+            min-height: 80vh;
+            background: linear-gradient(to right, rgba(45, 49, 66, 0.95), rgba(45, 49, 66, 0.8)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-manifesto {
+            max-width: 800px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .hero-manifesto p {
+            margin-bottom: 1rem;
+        }
+        
+        .hero-manifesto strong {
+            color: var(--joy);
+        }
+        
+        .hero-manifesto em {
+            font-style: italic;
+        }
+        
+        .hero-manifesto h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .section {
+            padding: 5rem 5%;
+            scroll-margin-top: 5rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--secondary);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .demo-section {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .demo-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .demo-input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+        }
+        
+        .demo-button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .demo-button:hover {
+            background-color: #4a6da7;
+        }
+        
+        .result-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .emotion-meter {
+            flex: 1;
+            min-width: 150px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .meter-fill {
+            height: 8px;
+            background-color: var(--joy);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            width: 70%;
+        }
+        
+        .calm .meter-fill {
+            background-color: var(--calm);
+            width: 60%;
+        }
+        
+        .passion .meter-fill {
+            background-color: var(--passion);
+            width: 85%;
+        }
+        
+        .team-section {
+            background-color: var(--neutral);
+        }
+        
+        .creator-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .creator-header {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 1px solid var(--neutral);
+        }
+        
+        .creator-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-right: 1.5rem;
+        }
+        
+        .creator-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creator-title {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+        
+        .creator-bio {
+            padding: 2rem;
+            line-height: 1.8;
+        }
+        
+        .creator-bio p {
+            margin-bottom: 1rem;
+        }
+        
+        .creator-bio strong {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .creator-bio em {
+            font-style: italic;
+        }
+        
+        .publications {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .publication-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .publication-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-authors {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .publication-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        .contact-social {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-social a {
+            color: var(--accent);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .contact-social a:hover {
+            text-decoration: underline;
+        }
+        
+        .wip-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .wip-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .wip-heading {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--joy);
+        }
+        
+        .wip-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .soon-tag {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        /* Animation for section transitions */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-manifesto {
+                padding: 1.5rem;
+            }
+            
+            .creator-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .creator-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">em<span>NLP</span>-Core</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#emotionscore">EmotionScore</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="cta-button">Future Access</a>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Understand Human Emotions Through Text</h1>
+            <p>emNLP-Core is an advanced platform for emotional analysis and intelligence, providing researchers and developers with powerful tools to interpret human emotions in text.</p>
+            <a href="#demo" class="cta-button">Experience the Demo</a>
+        </div>
+        
+        <div class="hero-manifesto">
+            <h3>Reframing Emotional Intelligence in AI</h3>
+            <p>For years, we've tried to understand <em>how machines think</em> — using algorithms, models, and vast datasets to interpret patterns. But here's the question no one's asked yet: <strong>How do machines interpret us?</strong></p>
+            
+            <p>At <strong>emNLP-Core</strong>, we're flipping the script. We're not just training AI to analyze data — we're teaching it to decode the <strong>human experience</strong>, specifically <strong>emotions</strong>.</p>
+            
+            <p>Emotions are complex, layered, and inherently human. Yet, they're also patterns. Patterns in language, tone, context, and even silence. And if AI is designed to understand patterns — isn't it time we pushed it to understand <strong>us</strong>, as humans, through the lens of our emotions?</p>
+            
+            <p>With <strong>Emotionscore</strong>, our proprietary system, we're doing exactly that. We're building an emotional intelligence engine that doesn't just see words — it sees <strong>feeling</strong>. Using <strong>advanced NLP</strong> and <strong>contextual emotional analysis</strong>, we're extracting emotional data from language that goes beyond simple sentiment or binary labels. This is a deeper, more <strong>dynamic exploration of emotional layers</strong>, tailored for those who believe AI should be more than just intelligent. It should be <strong>empathetic</strong>.</p>
+            
+            <p>So, take a step into the future: Where AI doesn't just "understand." It <strong>feels</strong>. Where emotions are more than just a human experience. They're data waiting to be analyzed. And we're just getting started.</p>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <h2 class="section-title">About emNLP-Core</h2>
+        <p class="section-subtitle">Pioneering the future of emotional intelligence in artificial systems</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">✧</div>
+                <h3>Multi-Dimensional Analysis</h3>
+                <p>Our system processes text through multiple emotional dimensions, capturing nuances that traditional sentiment analysis misses.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⟁</div>
+                <h3>Context-Aware Processing</h3>
+                <p>emNLP-Core understands contextual cues and cultural references, enabling more accurate emotional interpretation.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⌘</div>
+                <h3>Real-Time Feedback</h3>
+                <p>Get instant emotional analysis results with comprehensive visualization of emotional dimensions.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section demo-section" id="demo">
+        <h2 class="section-title">Demo In Progress</h2>
+        <p class="section-subtitle">We're building something different — and we want it to be worth the wait</p>
+        
+        <div class="wip-container">
+            <div class="wip-icon">🛠</div>
+            <h3 class="wip-heading">We're building something different — and we want it to be worth the wait.</h3>
+            <p class="wip-text">The EmotionScore system is still in development. Right now, we're refining how the engine interprets emotional language, runs multi-dimensional analysis, and adapts across different languages and cultures.</p>
+            <p class="wip-text">We don't just want to drop a basic demo — we want to release something that makes you <em>feel</em> it.</p>
+            <div class="soon-tag">👀 Coming soon</div>
+            <p class="wip-text">A live test space where you'll be able to input your own words and see how emNLP-Core interprets the emotion behind them.</p>
+            <p class="wip-text">In the meantime, stick around. Explore. Read. And maybe even imagine what it means for a machine to understand the way <em>you</em> feel.</p>
+        </div>
+    </section>
+    
+    <section class="section" id="emotionscore">
+        <h2 class="section-title">EmotionScore System</h2>
+        <p class="section-subtitle">An early-stage experiment in teaching AI how to understand human emotions</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">⌬</div>
+                <h3>Pattern Spotting</h3>
+                <p>The system looks for emotional patterns in text — like certain words, phrases, or styles — that usually connect to feelings like joy, frustration, excitement, or sadness. It doesn't just look at one word but tries to read the vibe of a whole sentence or paragraph.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⋈</div>
+                <h3>Emotion Mapping</h3>
+                <p>Instead of saying "this is positive" or "this is negative," EmotionScore tries to figure out <strong>what kind</strong> of emotion it is, and <strong>how strong</strong> it feels. It maps text on multiple levels — like whether something feels calm, anxious, warm, tense — kind of like giving it emotional coordinates.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⧉</div>
+                <h3>Learning Across Cultures</h3>
+                <p>People express emotions differently depending on where they're from or what language they use. This project is slowly learning how to pick up on those differences, so it doesn't treat all language the same. It's still very early, but the goal is to make it fair and flexible.</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 3rem; font-style: italic; color: var(--secondary);">🚧 This system is still being built — nothing here is perfect or final. But it's real, it's working, and it's getting better every day.</p>
+    </section>
+    
+    <section class="section team-section" id="team">
+        <h2 class="section-title">The Creator</h2>
+        <p class="section-subtitle">The mind behind emNLP-Core</p>
+        
+        <div class="creator-box">
+            <div class="creator-header">
+                <div class="creator-avatar">S</div>
+                <div>
+                    <h3 class="creator-name">K. SAI SATHVIK</h3>
+                    <p class="creator-title">Founder & Developer</p>
+                </div>
+            </div>
+            <div class="creator-bio">
+                <p>Hey, I'm <strong>Sai Sathvik</strong>, and I'm on a mission to change how AI understands us — not just our words, but our feelings too.</p>
+                
+                <p>I've always been fascinated by how AI can process language, but I couldn't stop thinking: <strong>What if AI could understand <em>how</em> we feel, not just what we say?</strong> That's why I started building <strong>emNLP-Core</strong> — an emotional analysis engine that goes beyond basic NLP and dives into the emotional patterns in language.</p>
+                
+                <p>I'm not an expert yet, but I'm <strong>obsessed with</strong> exploring how emotions work in AI systems. I focus on making AI more human, empathetic, and understanding of the subtleties in our communication.</p>
+                
+                <p>With <strong>Emotionscore</strong>, I'm developing a system that helps AI "feel" what humans feel through language, without oversimplifying it. It's an early-stage project, but I'm excited to see where it can go.</p>
+                
+                <p>This is just the beginning — and I'm sharing it with you as I continue to learn, experiment, and build.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="research">
+        <h2 class="section-title">Research & Publications</h2>
+        <p class="section-subtitle">Academic foundation of our technology</p>
+        
+        <div class="publications">
+            <div class="publication-card">
+                <h3>Multi-Dimensional Emotional Analysis in Digital Communication</h3>
+                <p class="publication-authors">SATHVIK</p>
+                <p>A comprehensive framework for analyzing emotional content in digital text across multiple dimensions, including cultural context and linguistic variance.</p>
+                <a href="#" class="publication-link">Read Abstract →</a>
+            </div>
+            
+            <div class="publication-card">
+                <h3>Contextual Emotional Intelligence in AI Systems</h3>
+                <p class="publication-authors">SATHVIK</p>
+                <p>Exploring the implementation of context-aware emotional processing in artificial intelligence systems for more naturalistic human-computer interaction.</p>
+                <a href="#" class="publication-link">Read Abstract →</a>
+            </div>
+            
+            <div class="publication-card">
+                <h3>Cross-Cultural Emotional Expression Patterns in Digital Text</h3>
+                <p class="publication-authors">SATHVIK</p>
+                <p>Analysis of how emotional expression varies across cultures in digital communication, with implications for global AI systems.</p>
+                <a href="#" class="publication-link">Read Abstract →</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="contact">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Wanna learn more about us?</p>
+        
+        <div class="contact-social">
+            <p>Contact me personally on Instagram: <a href="https://instagram.com/i_be_sath" target="_blank">@i_be_sath</a></p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="logo" style="margin-bottom: 1rem;">em<span>NLP</span>-Core</div>
+        <p>Advancing emotional intelligence in artificial systems</p>
+        
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#emotionscore">EmotionScore</a>
+            <a href="#demo">Demo</a>
+            <a href="#research">Research</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Documentation</a>
+        </div>
+        
+        <p class="copyright">© 2025 emNLP-Core. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 60, // Offset for header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add animation to sections when they come into view
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
